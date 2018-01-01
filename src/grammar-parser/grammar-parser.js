@@ -86,92 +86,92 @@ switch (yystate) {
 case 1:
 
       return $$[$0-1];
-
+    
 break;
 case 2:
 
       this.$ = yy.callVariable($$[$0][0]);
-
+    
 break;
 case 3:
 
       this.$ = yy.toNumber($$[$0]);
-
+    
 break;
 case 4:
 
       this.$ = yy.trimEdges($$[$0]);
-
+    
 break;
 case 5:
 
       this.$ = yy.evaluateByOperator('&', [$$[$0-2], $$[$0]]);
-
+    
 break;
 case 6:
 
       this.$ = yy.evaluateByOperator('=', [$$[$0-2], $$[$0]]);
-
+    
 break;
 case 7:
 
       this.$ = yy.evaluateByOperator('+', [$$[$0-2], $$[$0]]);
-
+    
 break;
 case 8:
 
       this.$ = $$[$0-1];
-
+    
 break;
 case 9:
 
       this.$ = yy.evaluateByOperator('<=', [$$[$0-3], $$[$0]]);
-
+    
 break;
 case 10:
 
       this.$ = yy.evaluateByOperator('>=', [$$[$0-3], $$[$0]]);
-
+    
 break;
 case 11:
 
       this.$ = yy.evaluateByOperator('<>', [$$[$0-3], $$[$0]]);
-
+    
 break;
 case 12:
 
       this.$ = yy.evaluateByOperator('NOT', [$$[$0-2], $$[$0]]);
-
+    
 break;
 case 13:
 
       this.$ = yy.evaluateByOperator('>', [$$[$0-2], $$[$0]]);
-
+    
 break;
 case 14:
 
       this.$ = yy.evaluateByOperator('<', [$$[$0-2], $$[$0]]);
-
+    
 break;
 case 15:
 
       this.$ = yy.evaluateByOperator('-', [$$[$0-2], $$[$0]]);
-
+    
 break;
 case 16:
 
       this.$ = yy.evaluateByOperator('*', [$$[$0-2], $$[$0]]);
-
+    
 break;
 case 17:
 
       this.$ = yy.evaluateByOperator('/', [$$[$0-2], $$[$0]]);
-
+    
 break;
 case 18:
 
       this.$ = yy.evaluateByOperator('^', [$$[$0-2], $$[$0]]);
-
+    
 break;
 case 19:
 
@@ -182,7 +182,7 @@ case 19:
       if (isNaN(this.$)) {
           this.$ = 0;
       }
-
+    
 break;
 case 20:
 
@@ -193,44 +193,64 @@ case 20:
       if (isNaN(this.$)) {
           this.$ = 0;
       }
-
+    
 break;
 case 21:
 
       this.$ = yy.callFunction($$[$0-2]);
-
+    
 break;
 case 22:
 
       this.$ = yy.callFunction($$[$0-3], $$[$0-1]);
-
+    
 break;
 case 26: case 28: case 30:
 
       this.$ = yy.cellValue($$[$0]);
-
+    
 break;
 case 27: case 29: case 31:
 
       this.$ = yy.cellValue($$[$0-1] + $$[$0]);
-
+    
 break;
 case 32: case 34: case 36: case 38: case 40: case 42: case 44: case 46: case 48:
 
       this.$ = yy.rangeValue($$[$0-2], $$[$0]);
-
+    
 break;
 case 33: case 35: case 37: case 39: case 41: case 43: case 45: case 47: case 49:
 
       this.$ = yy.rangeValue($$[$0-3] + $$[$0-2], $$[$0-3] + $$[$0]);
-
+    
 break;
 case 50:
 
       this.$ = yy.columnRangeValue($$[$0]);
-
+    
 break;
 case 51:
+
+      this.$ = yy.columnRangeValue($$[$0-1]+$$[$0])
+    
+break;
+case 52:
+
+      this.$ = yy.rowRangeValue($$[$0]);
+    
+break;
+case 53:
+
+      this.$ = yy.rowRangeValue($$[$0-1]+$$[$0])
+    
+break;
+case 54: case 58:
+
+      this.$ = [$$[$0]];
+    
+break;
+case 55:
 
       this.$ = yy.columnRangeValue($$[$0-1]+$$[$0])
 
@@ -260,39 +280,39 @@ case 55:
       });
 
       this.$ = result;
-
+    
 break;
 case 56: case 57:
 
       $$[$0-2].push($$[$0]);
       this.$ = $$[$0-2];
-
+    
 break;
 case 59:
 
       this.$ = (Array.isArray($$[$0-2]) ? $$[$0-2] : [$$[$0-2]]);
       this.$.push($$[$0]);
-
+    
 break;
 case 60:
 
       this.$ = $$[$0];
-
+    
 break;
 case 61:
 
       this.$ = ($$[$0-2] + '.' + $$[$0]) * 1;
-
+    
 break;
 case 62:
 
       this.$ = $$[$0-1] * 0.01;
-
+    
 break;
 case 63:
 
       this.$ = yy.throwError($$[$0]);
-
+    
 break;
 }
 },
@@ -876,15 +896,15 @@ var YYSTATE=YY_START;
 switch($avoiding_name_collisions) {
 case 0:/* skip whitespace */
 break;
-case 1:return 8;
+case 1:return 25;
 break;
 case 2:return 8;
 break;
-case 3:return 21;
+case 3:return 8;
 break;
-case 4:return 38;
+case 4:return 21;
 break;
-case 5:return 25;
+case 5:return 38;
 break;
 case 6:return 29
 break;
@@ -956,7 +976,7 @@ case 39:return 5;
 break;
 }
 },
-rules: [/^(?:\s+)/,/^(?:"(\\["]|[^"])*")/,/^(?:'(\\[']|[^'])*')/,/^(?:[A-Za-z]{1,}[A-Za-z_0-9\.]+(?=[(]))/,/^(?:#[A-Z0-9\/]+(!|\?)?)/,/^(?:[A-Za-z0-9\\s]+!)/,/^(?:(\$)?[A-Za-z]+:(\$)?[A-Za-z]+)/,/^(?:(\$)?[0-9]+:(\$)?[0-9]+)/,/^(?:\$[A-Za-z]+\$[0-9]+)/,/^(?:\$[A-Za-z]+[0-9]+)/,/^(?:[A-Za-z]+\$[0-9]+)/,/^(?:[A-Za-z]+[0-9]+)/,/^(?:[A-Za-z\.]+(?=[(]))/,/^(?:[A-Za-z]{1,}[A-Za-z_0-9]+)/,/^(?:[A-Za-z_]+)/,/^(?:[0-9]+)/,/^(?:\[(.*)?\])/,/^(?:&)/,/^(?: )/,/^(?:[.])/,/^(?::)/,/^(?:;)/,/^(?:,)/,/^(?:\*)/,/^(?:\/)/,/^(?:-)/,/^(?:\+)/,/^(?:\^)/,/^(?:\()/,/^(?:\))/,/^(?:>)/,/^(?:<)/,/^(?:NOT\b)/,/^(?:")/,/^(?:')/,/^(?:!)/,/^(?:=)/,/^(?:%)/,/^(?:[#])/,/^(?:$)/],
+rules: [/^(?:\s+)/,/^(?:[-'&A-Za-z0-9\s]+!)/,/^(?:"(\\["]|[^"])*")/,/^(?:'(\\[']|[^'])*')/,/^(?:[A-Za-z]{1,}[A-Za-z_0-9\.]+(?=[(]))/,/^(?:#[A-Z0-9\/]+(!|\?)?)/,/^(?:(\$)?[A-Za-z]+:(\$)?[A-Za-z]+)/,/^(?:(\$)?[0-9]+:(\$)?[0-9]+)/,/^(?:\$[A-Za-z]+\$[0-9]+)/,/^(?:\$[A-Za-z]+[0-9]+)/,/^(?:[A-Za-z]+\$[0-9]+)/,/^(?:[A-Za-z]+[0-9]+)/,/^(?:[A-Za-z\.]+(?=[(]))/,/^(?:[A-Za-z]{1,}[A-Za-z_0-9]+)/,/^(?:[A-Za-z_]+)/,/^(?:[0-9]+)/,/^(?:\[(.*)?\])/,/^(?:&)/,/^(?: )/,/^(?:[.])/,/^(?::)/,/^(?:;)/,/^(?:,)/,/^(?:\*)/,/^(?:\/)/,/^(?:-)/,/^(?:\+)/,/^(?:\^)/,/^(?:\()/,/^(?:\))/,/^(?:>)/,/^(?:<)/,/^(?:NOT\b)/,/^(?:")/,/^(?:')/,/^(?:!)/,/^(?:=)/,/^(?:%)/,/^(?:[#])/,/^(?:$)/],
 conditions: {"INITIAL":{"rules":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39],"inclusive":true}}
 });
 return lexer;
@@ -979,7 +999,6 @@ exports.main = function commonjsMain(args) {
         console.log('Usage: '+args[0]+' FILE');
         process.exit(1);
     }
-    // var source = require('fs').readFileSync(require('path').normalize(args[1]), "utf8");
     return exports.parser.parse(source);
 };
 if (typeof module !== 'undefined' && require.main === module) {

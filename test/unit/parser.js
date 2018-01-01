@@ -227,21 +227,45 @@ describe('Parser', () => {
   });
 
   describe('._callColumnRangeValue', () => {
-    it('should convert coordinates in top-left bottom-right format (from bottom-left to top-right)', () => {
+    it('should invoke callback with starting column and ending column', () => {
       const cb = jest.fn();
 
       parser.on('callColumnRangeValue', cb);
-      parser._callRangeValue('Sheet1!$A:$B');
+      parser._callColumnRangeValue('Sheet1!$A:B');
 
       const startCell = {
-        row: {index: 1, isAbsolute: false, label: '2'},
         column: {index: 0, isAbsolute: true, label: 'A'},
-        label: '$A2',
+        label: '$A',
+        sheet: 'Sheet1',
       };
       const endCell = {
-        row: {index: 8, isAbsolute: true, label: '9'},
         column: {index: 1, isAbsolute: false, label: 'B'},
-        label: 'B$9',
+        label: 'B',
+        sheet: 'Sheet1',
+      };
+
+      expect(cb).toHaveBeenCalledWith(startCell, endCell, expect.anything());
+    });
+
+  });
+
+  describe('._callRowRangeValue', () => {
+    it.only('should invoke callback with starting column and ending column', () => {
+      const cb = jest.fn();
+
+      parser.on('callRowRangeValue', cb);
+
+      parser._callRowRangeValue('Sheet1!$1:10');
+
+      const startCell = {
+        row: {index: 0, isAbsolute: true, label: '1'},
+        label: '$1',
+        sheet: 'Sheet1'
+      };
+      const endCell = {
+        row: {index: 9, isAbsolute: false, label: '10'},
+        label: '10',
+        sheet: 'Sheet1'
       };
 
       expect(cb).toHaveBeenCalledWith(startCell, endCell, expect.anything());

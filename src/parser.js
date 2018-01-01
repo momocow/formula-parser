@@ -23,7 +23,8 @@ class Parser extends Emitter {
       callFunction: (name, params) => this._callFunction(name, params),
       cellValue: (value) => this._callCellValue(value),
       rangeValue: (start, end) => this._callRangeValue(start, end),
-      columnRangeValue: (range) => this._callColumnRangeValue(range)
+      columnRangeValue: (range) => this._callColumnRangeValue(range),
+      rowRangeValue: (range) => this._callRowRangeValue(range)
     };
     this.variables = Object.create(null);
     this.functions = Object.create(null);
@@ -51,6 +52,7 @@ class Parser extends Emitter {
         result = this.parser.parse(expression);
       }
     } catch (ex) {
+      console.log('got error from parser', ex);
       const message = errorParser(ex.message);
 
       if (message) {
@@ -149,6 +151,8 @@ class Parser extends Emitter {
    * @private
    */
   _callFunction(name, params = []) {
+
+    // console.log('calling function ' + name);
     const fn = this.getFunction(name);
     let value;
 
@@ -190,7 +194,7 @@ class Parser extends Emitter {
   _callColumnRangeValue(range) {
     const [startLabel, endLabel] = range.split(':');
     const [, startColumn, startSheet] = extractLabel(startLabel);
-    const [, endColumn, endSheet] = extractLabel(startLabel);
+    const [, endColumn, endSheet] = extractLabel(endLabel);
 
     let startCell = {};
     let endCell = {};
@@ -219,6 +223,44 @@ class Parser extends Emitter {
 
     return value;
   }
+
+  /**
+   * Retrieve entire rows
+   * @param {String} range range reference. e.g. Sheet1!$1:$10 , 2:2, 3:$3.
+   * */
+  _callRowRangeValue(range) {
+    const [startLabel, endLabel] = range.split(':');
+    const [startRow, startColumn, startSheet] = extractLabel(startLabel);
+    const [endRow, endColumn] = extractLabel(endLabel);
+
+    let startCell = {};
+    let endCell = {};
+
+    if (startRow.index <= endRow.index) {
+      startCell.row = startRow;
+      endCell.row = endRow;
+    } else {
+      startCell.row = endRow;
+      endCell.row = startRow;
+    }
+
+    startCell.label = toLabel(startCell.row, startCell.column);
+    endCell.label = toLabel(endCell.row, endCell.column);
+
+    if (startSheet) {
+      startCell.sheet = startSheet;
+      endCell.sheet = startSheet;
+    }
+
+    let value = [];
+
+    this.emit('callRowRangeValue', startCell, endCell, (_value = []) => {
+      value = _value;
+    });
+
+    return value;
+  }
+
   /**
    * Retrieve value by its label (`B3:A1`, `B$3:A1`, `B$3:$A1`, `$B$3:A$1`).
    *
@@ -254,9 +296,7 @@ class Parser extends Emitter {
 
     if (startSheet) {
       startCell.sheet = startSheet;
-    }
-    if (endSheet) {
-      endCell.sheet = endSheet;
+      endCell.sheet = startSheet;
     }
 
     let value = [];
