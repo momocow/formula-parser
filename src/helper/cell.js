@@ -98,7 +98,7 @@ export function extractLabel(label) {
       label: (column ? column.toUpperCase() : ''),
       isAbsolute: columnAbs === '$',
     },
-    sheet ? sheet.replace(/^'/, '').replace(/'$/, '') : undefined
+    sheet ? sheet.replace(/^'/, '').replace(/'$/, '') : undefined,
   ];
 }
 

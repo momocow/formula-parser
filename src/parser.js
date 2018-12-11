@@ -24,7 +24,7 @@ class Parser extends Emitter {
       cellValue: (value) => this._callCellValue(value),
       rangeValue: (start, end) => this._callRangeValue(start, end),
       columnRangeValue: (range) => this._callColumnRangeValue(range),
-      rowRangeValue: (range) => this._callRowRangeValue(range)
+      rowRangeValue: (range) => this._callRowRangeValue(range),
     };
     this.variables = Object.create(null);
     this.functions = Object.create(null);
@@ -52,7 +52,7 @@ class Parser extends Emitter {
         result = this.parser.parse(expression);
       }
     } catch (ex) {
-      console.log('got error from parser', ex);
+      // console.log('got error from parser', ex);
       const message = errorParser(ex.message);
 
       if (message) {

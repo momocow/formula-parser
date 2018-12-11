@@ -260,12 +260,12 @@ describe('Parser', () => {
       const startCell = {
         row: {index: 0, isAbsolute: true, label: '1'},
         label: '$1',
-        sheet: 'Sheet1'
+        sheet: 'Sheet1',
       };
       const endCell = {
         row: {index: 9, isAbsolute: false, label: '10'},
         label: '10',
-        sheet: 'Sheet1'
+        sheet: 'Sheet1',
       };
 
       expect(cb).toHaveBeenCalledWith(startCell, endCell, expect.anything());
